@@ -38,18 +38,21 @@ end
 -- Load plugin manager
 require("config.lazy")
 
+-- Mason must be set up before mason-lspconfig is required
+require("mason").setup()
+
 -- Load configurations in logical order
 require("config.vim-settings")    -- Additional vim settings first
 require("config.remaps")           -- Basic keymaps
 require("config.treesitter-config")
+require("config.folding")          -- Treesitter-based folding
 require("config.cmp-config")
 require("config.lsp-config")       -- LSP after treesitter and completion
 require("config.luasnip-config")
 require("config.telescope-remap")  -- UI tools
+require("config.autoclose")        -- Bracket/quote autoclose
+require("config.nvim-lint")        -- Linting
 require("config.dap-config")       -- Debugging last
-
--- Setup Mason (should be after LSP config)
-require("mason").setup()
 
 -- Mason DAP setup
 require("mason-nvim-dap").setup({
@@ -74,4 +77,4 @@ require("mason-nvim-dap").setup({
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- Set colorscheme last
-vim.cmd.colorscheme("catppuccin")
+pcall(vim.cmd.colorscheme, "catppuccin")

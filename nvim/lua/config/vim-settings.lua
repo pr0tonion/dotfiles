@@ -33,10 +33,16 @@ autocmd('BufWritePre', {
   end,
 })
 
--- Remove trailing whitespace on save
+-- Remove trailing whitespace on save (skip filetypes where it's significant)
 autocmd('BufWritePre', {
   pattern = '*',
-  command = [[%s/\s\+$//e]],
+  callback = function()
+    local skip = { markdown = true, gitcommit = true, diff = true, mail = true }
+    if skip[vim.bo.filetype] then return end
+    local view = vim.fn.winsaveview()
+    vim.cmd([[silent! keepjumps keeppatterns %s/\s\+$//e]])
+    vim.fn.winrestview(view)
+  end,
 })
 
 -- Better vim-like settings

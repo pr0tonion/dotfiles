@@ -22,6 +22,6 @@ vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "Git status" })
 -- Vim-specific
 vim.keymap.set("n", "<leader>fj", builtin.jumplist, { desc = "Jump list" })
 vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Marks" })
-vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Registers" })
+vim.keymap.set("n", "<leader>fR", builtin.registers, { desc = "Registers" })
 vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
 vim.keymap.set("n", "<leader>ft", builtin.colorscheme, { desc = "Color schemes" })
