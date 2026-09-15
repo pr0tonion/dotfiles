@@ -1,4 +1,6 @@
 require("nvim-tree").setup({
+	-- Let oil.nvim handle directory buffers (`nvim .`)
+	hijack_directories = { enable = false },
 	sort = {
 		sorter = "case_sensitive",
 	},

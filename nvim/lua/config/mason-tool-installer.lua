@@ -1,10 +1,7 @@
 require("mason-tool-installer").setup({
 	ensure_installed = {
-		-- Formatters
-		"prettier",
+		-- Formatters used by conform.nvim (ruff comes from mason-lspconfig)
 		"prettierd",
-		"black",
-		"isort",
 		"stylua",
 	},
 	auto_update = true,

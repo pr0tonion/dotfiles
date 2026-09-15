@@ -22,13 +22,6 @@ return {
     event = "VeryLazy",
   },
   
-  -- Comment with gcc/gc
-  {
-    "numToStr/Comment.nvim",
-    opts = {},
-    lazy = false,
-  },
-  
   -- Jump anywhere with s/S (explicit maps: the old default mappings hijacked x/X in visual mode)
   {
     "ggandor/leap.nvim",
