@@ -8,6 +8,7 @@ wk.add({
     { "<leader>f", group = "+Find" },
     { "<leader>g", group = "+Git" },
     { "<leader>h", group = "+Git hunks" },
+    { "<leader>q", group = "+Session" },
     { "<leader>t", group = "+Terminal" },
     { "<leader>w", group = "+Windows" },
 

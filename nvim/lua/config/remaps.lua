@@ -40,7 +40,3 @@ map("x", "<leader>p", '"_dP')
 -- Faster vertical movement
 map("n", "<C-d>", "10j")
 map("n", "<C-u>", "10k")
-
--- File Explorer
-map("n", "<leader>e", ":NvimTreeToggle<CR>")
-map("n", "<leader>E", ":NvimTreeFindFileToggle<CR>")

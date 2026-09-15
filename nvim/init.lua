@@ -46,10 +46,8 @@ require("config.vim-settings")    -- Additional vim settings first
 require("config.remaps")           -- Basic keymaps
 require("config.treesitter-config")
 require("config.folding")          -- Treesitter-based folding
-require("config.cmp-config")
 require("config.lsp-config")       -- LSP after treesitter and completion
 require("config.luasnip-config")
-require("config.telescope-remap")  -- UI tools
 require("config.autoclose")        -- Bracket/quote autoclose
 require("config.nvim-lint")        -- Linting
 require("config.dap-config")       -- Debugging last
