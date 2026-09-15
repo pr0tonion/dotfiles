@@ -1,6 +1,3 @@
--- Explorer
-map("n", "<leader>pv", vim.cmd.Ex, { desc = "Open netrw" })
-
 -- Window split rotation (was <leader>tk/<leader>th — moved to <leader>w*
 -- to free up the <leader>t namespace for terminals)
 map("n", "<leader>wk", "<C-w>t<C-w>K", { desc = "Rotate splits to horizontal" })
@@ -18,8 +15,8 @@ map("n", "<Down>", "<Nop>")
 map("n", "<Left>", "<Nop>")
 map("n", "<Right>", "<Nop>")
 
--- Reload current file
-map("n", "<leader>r", ":so %<CR>")
+-- Reload current file (not <leader>r, which would make it wait for <leader>rn)
+map("n", "<leader>R", ":so %<CR>", { desc = "Source current file" })
 
 -- Keep cursor centered when searching
 map("n", "n", "nzzzv")
@@ -29,13 +26,13 @@ map("n", "N", "Nzzzv")
 map("n", "<C-o>", "<C-o>zz")
 map("n", "<C-i>", "<C-i>zz")
 
--- Better indenting in visual mode
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+-- Better indenting in visual mode ("x", not "v", so typing in snippet placeholders isn't affected)
+map("x", "<", "<gv")
+map("x", ">", ">gv")
 
 -- Move lines up/down in visual mode
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+map("x", "J", ":m '>+1<CR>gv=gv")
+map("x", "K", ":m '<-2<CR>gv=gv")
 
 -- Better pasting (don't lose register when pasting over selection)
 map("x", "<leader>p", '"_dP')

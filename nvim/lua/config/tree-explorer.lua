@@ -10,6 +10,7 @@ require("nvim-tree").setup({
 	},
 	filters = {
 		dotfiles = true,
-		exclude = { 'node_modules', 'venv' }
+		-- "custom" hides matches ("exclude" means always show them)
+		custom = { '^node_modules$', '^venv$' }
 	},
 })

@@ -29,11 +29,13 @@ return {
     lazy = false,
   },
   
-  -- Better f/F/t/T
+  -- Jump anywhere with s/S (explicit maps: the old default mappings hijacked x/X in visual mode)
   {
     "ggandor/leap.nvim",
     config = function()
-      require('leap').add_default_mappings()
+      vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
+      vim.keymap.set({ "n", "o" }, "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
+      vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)", { desc = "Leap to other window" })
     end
   },
   

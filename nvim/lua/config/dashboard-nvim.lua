@@ -4,9 +4,15 @@ local ascii = require("ascii")
 dashboard.setup({
 	theme = "hyper",
 	config = {
-		week_header = { enable = true },
 		header = ascii.art.misc.hydra.hydra,
-		project = { enable = true },
+		project = {
+			enable = true,
+			-- cd into the project, not just search it
+			action = function(path)
+				vim.fn.chdir(path)
+				require("telescope.builtin").find_files({ cwd = path })
+			end,
+		},
 		mru = { limit = 5 },
 		shortcut = {
 			{ desc = "󰚰 Update", group = "@property", action = "Lazy update", key = "u" },

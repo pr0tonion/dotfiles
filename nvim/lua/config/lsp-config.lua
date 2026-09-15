@@ -15,6 +15,11 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
+-- Drop Neovim's default gr* LSP maps so `gr` below fires without waiting
+for _, lhs in ipairs({ "grn", "gra", "grr", "gri", "grt" }) do
+	pcall(vim.keymap.del, "n", lhs)
+end
+
 -- Vim-like LSP keybindings
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })

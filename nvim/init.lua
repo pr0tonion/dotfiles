@@ -62,14 +62,8 @@ require("mason-nvim-dap").setup({
         function(config)
             require('mason-nvim-dap').default_setup(config)
         end,
-        python = function(config)
-            config.adapters = {
-                type = "executable",
-                command = vim.fn.exepath('python'),
-                args = { "-m", "debugpy.adapter" },
-            }
-            require('mason-nvim-dap').default_setup(config)
-        end,
+        -- Adapter and configurations live in config/dap-config.lua; mason only installs debugpy
+        python = function() end,
     },
 })
 

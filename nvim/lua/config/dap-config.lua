@@ -5,30 +5,27 @@ local dapui = require("dapui")
 require("nvim-dap-virtual-text").setup()
 dapui.setup()
 
--- Python adapter configuration
+-- Python adapter runs Mason's debugpy, so the project env doesn't need debugpy installed
 dap.adapters.python = {
   type = 'executable';
-  command = vim.fn.exepath('python');
-  args = { '-m', 'debugpy.adapter' };
+  command = vim.fn.stdpath('data') .. '/mason/bin/debugpy-adapter';
 }
 
-dap.configurations.java = {
-  {
-    type = 'java';
-    request = 'launch';
-    name = "Launch Current File";
-    mainClass = function()
-      return vim.fn.input('Main Class > ', vim.fn.getcwd() .. '.', 'file')
-    end;
-    projectName = function()
-      return vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-    end;
-    args = function()
-      local input = vim.fn.input('Program arguments: ')
-      return vim.split(input, " +")
-    end;
-  },
-}
+-- Resolve the project interpreter at launch time: active venv, then .venv/venv in cwd
+local function python_path()
+  local venv = os.getenv('VIRTUAL_ENV')
+  if venv then
+    return venv .. '/bin/python'
+  end
+  for _, dir in ipairs({ '.venv', 'venv' }) do
+    local python = vim.fn.getcwd() .. '/' .. dir .. '/bin/python'
+    if vim.fn.executable(python) == 1 then
+      return python
+    end
+  end
+  return 'python3'
+end
+
 dap.configurations.python = {
   -- 1. Launch main.py from root (this will be shown first)
   {
@@ -40,9 +37,7 @@ dap.configurations.python = {
       return (workspace or vim.fn.getcwd()) .. '/main.py'
     end;
     console = 'integratedTerminal';
-    pythonPath = function()
-      return vim.fn.exepath('python')
-    end;
+    pythonPath = python_path;
   },
 
   -- 2. Launch currently open file
@@ -52,9 +47,7 @@ dap.configurations.python = {
     name = '📄 Run Current File';
     program = "${file}";
     console = 'integratedTerminal';
-    pythonPath = function()
-      return vim.fn.exepath('python')
-    end;
+    pythonPath = python_path;
   },
 
 {
@@ -74,9 +67,7 @@ dap.configurations.python = {
   end;
   console = 'integratedTerminal';
   justMyCode = false;
-  pythonPath = function()
-    return vim.fn.exepath('python')
-  end;
+  pythonPath = python_path;
 },
 }
 -- DAP UI auto open

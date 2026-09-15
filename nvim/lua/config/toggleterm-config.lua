@@ -12,8 +12,9 @@ require("toggleterm").setup({
 	shade_terminals = true,
 	shading_factor = 2,
 	start_in_insert = true,
-	insert_mappings = true,
-	terminal_mappings = true,
+	-- open_mapping uses <leader>, so keep it out of insert/terminal mode (typing " tt" would open a terminal)
+	insert_mappings = false,
+	terminal_mappings = false,
 	persist_size = true,
 	persist_mode = true,
 	direction = "float",
@@ -40,11 +41,20 @@ local opts = { noremap = true, silent = true }
 keymap("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>",
 	vim.tbl_extend("force", opts, { desc = "Toggle horizontal terminal" }))
 
--- Exit terminal mode with ESC
-keymap("t", "<Esc>", [[<C-\><C-n>]], opts)
+-- Terminal-mode keymaps only in toggleterm buffers, so <Esc> still reaches lazygit and other terminal apps
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("ToggleTermKeymaps", { clear = true }),
+	pattern = "term://*toggleterm#*",
+	callback = function(event)
+		local buf_opts = vim.tbl_extend("force", opts, { buffer = event.buf })
 
--- Navigation in terminal mode (same as tmux)
-keymap("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-keymap("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-keymap("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-keymap("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+		-- Exit terminal mode with ESC
+		keymap("t", "<Esc>", [[<C-\><C-n>]], buf_opts)
+
+		-- Navigation in terminal mode (same as tmux)
+		keymap("t", "<C-h>", [[<Cmd>wincmd h<CR>]], buf_opts)
+		keymap("t", "<C-j>", [[<Cmd>wincmd j<CR>]], buf_opts)
+		keymap("t", "<C-k>", [[<Cmd>wincmd k<CR>]], buf_opts)
+		keymap("t", "<C-l>", [[<Cmd>wincmd l<CR>]], buf_opts)
+	end,
+})

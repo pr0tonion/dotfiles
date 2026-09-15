@@ -1,5 +1,6 @@
 return {
-	{'nvim-telescope/telescope.nvim', tag = '0.1.8',
-      dependencies = { 'nvim-lua/plenary.nvim' }
-      } 
+	-- Track master: the 0.1.x releases warn about position_encoding on Neovim 0.11
+	{ 'nvim-telescope/telescope.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' }
 	}
+}
