@@ -40,3 +40,6 @@ map("x", "<leader>p", '"_dP')
 -- Faster vertical movement
 map("n", "<C-d>", "10j")
 map("n", "<C-u>", "10k")
+
+-- Folding
+map("n", "<Tab>", "za", { desc = "Toggle fold under cursor" })
